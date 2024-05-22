@@ -1,0 +1,56 @@
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+import "@typespec/openapi";
+import "@typespec/rest";
+import "./models.tsp";
+
+using TypeSpec.Rest;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Foundations;
+using TypeSpec.Http;
+using TypeSpec.OpenAPI;
+
+namespace Microsoft.HybridContainerService;
+/**
+ * The supported kubernetes versions.
+ */
+@singleton("default")
+model KubernetesVersionProfile
+  is ExtensionResource<KubernetesVersionProfileProperties> {
+  @key("kubernetesVersion")
+  @segment("kubernetesVersions")
+  @visibility("read")
+  name: string;
+
+  /**
+   * Extended location pointing to the underlying infrastructure
+   */
+  extendedLocation?: ExtendedLocation;
+}
+
+@armResourceOperations
+interface KubernetesVersionProfiles {
+  /**
+   * Lists the supported kubernetes versions for the specified custom location
+   */
+  getKubernetesVersions is ArmResourceRead<KubernetesVersionProfile>;
+
+  /**
+   * Puts the default kubernetes version resource type (one time operation, before listing the kubernetes versions)
+   */
+  putKubernetesVersions is ArmResourceCreateOrReplaceAsync<KubernetesVersionProfile>;
+
+  /**
+   * Delete the default kubernetes versions resource type
+   */
+  deleteKubernetesVersions is ArmResourceDeleteWithoutOkAsync<KubernetesVersionProfile>;
+
+  /**
+   * Lists the supported kubernetes versions for the specified custom location
+   */
+  list is ArmResourceListByParent<KubernetesVersionProfile>;
+}
+
+@@doc(KubernetesVersionProfiles.putKubernetesVersions::parameters.resource,
+  "Kubernetes Versions resource definition"
+);
