@@ -7,7 +7,6 @@ import "./ProvisionedCluster.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Foundations;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 
@@ -19,10 +18,11 @@ namespace Microsoft.HybridContainerService;
 @parentResource(ProvisionedCluster)
 model ProvisionedClusterUpgradeProfile
   is ProxyResource<ProvisionedClusterUpgradeProfileProperties> {
-  @key("upgradeProfile")
-  @segment("upgradeProfiles")
-  @visibility("read")
-  name: string;
+  ...ResourceNameParameter<
+    ProvisionedClusterUpgradeProfile,
+    "upgradeProfile",
+    "upgradeProfiles"
+  >;
 }
 
 @armResourceOperations
