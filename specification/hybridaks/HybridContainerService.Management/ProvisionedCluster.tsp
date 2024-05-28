@@ -18,7 +18,7 @@ model ProvisionedCluster is ExtensionResource<ProvisionedClusterProperties> {
   ...ResourceNameParameter<
     ProvisionedCluster,
     "provisionedClusterInstance",
-    "provisionedClusterInstance"
+    "provisionedClusterInstances"
   >;
 
   /**

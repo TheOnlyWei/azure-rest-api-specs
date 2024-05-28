@@ -66,7 +66,7 @@
     }
   ],
   "paths": {
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/kubernetesVersion": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/kubernetesVersions": {
       "get": {
         "operationId": "KubernetesVersionProfiles_List",
         "tags": [
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/kubernetesVersion/default": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/kubernetesVersions/default": {
       "get": {
         "operationId": "KubernetesVersionProfiles_GetKubernetesVersions",
         "tags": [
@@ -230,7 +230,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances": {
       "get": {
         "operationId": "ProvisionedClusters_List",
         "tags": [
@@ -264,7 +264,7 @@
         }
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default": {
       "get": {
         "operationId": "ProvisionedClusters_Get",
         "tags": [
@@ -394,7 +394,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default/agentPools": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools": {
       "get": {
         "operationId": "AgentPools_ListByProvisionedCluster",
         "tags": [
@@ -428,7 +428,7 @@
         }
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default/agentPools/{agentPoolName}": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools/{agentPoolName}": {
       "get": {
         "operationId": "AgentPools_Get",
         "tags": [
@@ -588,7 +588,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default/hybridIdentityMetadata": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/hybridIdentityMetadata": {
       "get": {
         "operationId": "HybridIdentityMetadataOperationGroup_ListByProvisionedCluster",
         "tags": [
@@ -622,7 +622,7 @@
         }
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default/hybridIdentityMetadata/default": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/hybridIdentityMetadata/default": {
       "get": {
         "operationId": "HybridIdentityMetadataOperationGroup_Get",
         "tags": [
@@ -741,7 +741,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default/listAdminKubeconfig": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/listAdminKubeconfig": {
       "post": {
         "operationId": "ProvisionedClusters_ListAdminKubeconfig",
         "tags": [
@@ -790,7 +790,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default/listUserKubeconfig": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/listUserKubeconfig": {
       "post": {
         "operationId": "ProvisionedClusters_ListUserKubeconfig",
         "tags": [
@@ -839,7 +839,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstance/default/upgradeProfiles/default": {
+    "/{resourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/upgradeProfiles/default": {
       "get": {
         "operationId": "ProvisionedClusterUpgradeProfiles_GetUpgradeProfile",
         "tags": [

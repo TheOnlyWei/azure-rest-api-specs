@@ -18,8 +18,8 @@ model KubernetesVersionProfile
   is ExtensionResource<KubernetesVersionProfileProperties> {
   ...ResourceNameParameter<
     KubernetesVersionProfile,
-    "kubernetesVersions",
-    "kubernetesVersion"
+    "kubernetesVersion",
+    "kubernetesVersions"
   >;
 
   /**
