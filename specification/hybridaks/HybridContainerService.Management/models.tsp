@@ -5,7 +5,6 @@ import "@azure-tools/typespec-azure-resource-manager";
 using TypeSpec.Rest;
 using TypeSpec.Http;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Foundations;
 
 namespace Microsoft.HybridContainerService;
 
@@ -14,117 +13,152 @@ interface Operations extends Azure.ResourceManager.Operations {}
 /**
  * Network policy used for building Kubernetes network. Possible values include: 'calico'.
  */
-enum NetworkPolicy {
-  calico,
+union NetworkPolicy {
+  /** Use the calico policy */
+  calico: "calico",
+
+  string,
 }
 
 /**
  * The particular KubernetesVersion Image OS Type (Linux, Windows)
  */
-enum OsType {
-  Windows,
-  Linux,
+union OsType {
+  /** The Windows OS */
+  Windows: "Windows",
+
+  /** A Linux OS */
+  Linux: "Linux",
+
+  string,
 }
 
 /**
  * Specifies the OS SKU used by the agent pool. The default is CBLMariner if OSType is Linux. The default is Windows2019 when OSType is Windows.
  */
-enum Ossku {
+union Ossku {
+  string,
+
   /**
    * Use Mariner as the OS for node images.
    */
-  CBLMariner,
+  CBLMariner: "CBLMariner",
 
   /**
    * Use Windows2019 as the OS for node images.
    */
-  Windows2019,
+  Windows2019: "Windows2019",
 
   /**
    * Use Windows2022 as the OS for node images.
    */
-  Windows2022,
+  Windows2022: "Windows2022",
 }
 
 /**
  * Provisioning state of the resource
  */
-enum ResourceProvisioningState {
-  Succeeded,
-  Failed,
-  Canceled,
-  Pending,
-  Creating,
-  Deleting,
-  Updating,
-  Upgrading,
-  Accepted,
+union ResourceProvisioningState {
+  string,
+
+  /** Operation successful */
+  Succeeded: "Succeeded",
+
+  /** Operation failed */
+  Failed: "Failed",
+
+  /** Operation cancelled */
+  Canceled: "Canceled",
+
+  /** Operation is pending */
+  Pending: "Pending",
+
+  /** Resource is being created */
+  Creating: "Creating",
+
+  /** Resource is being delete */
+  Deleting: "Deleting",
+
+  /** Update in progress */
+  Updating: "Updating",
+
+  /** Upgrade in progress */
+  Upgrading: "Upgrading",
+
+  /** Operation accepted */
+  Accepted: "Accepted",
 }
 
 /**
  * Observed phase of the addon or component on the provisioned cluster. Possible values include: 'pending', 'provisioning', 'provisioning {HelmChartInstalled}', 'provisioning {MSICertificateDownloaded}', 'provisioned', 'deleting', 'failed', 'upgrading'
  */
-enum AddonPhase {
-  pending,
-  provisioning,
-  `provisioning {HelmChartInstalled}`,
-  `provisioning {MSICertificateDownloaded}`,
-  provisioned,
-  deleting,
-  failed,
-  upgrading,
+union AddonPhase {
+  string,
+  pending: "pending",
+  provisioning: "provisioning",
+  `provisioning {HelmChartInstalled}`: "provisioning {HelmChartInstalled}",
+  `provisioning {MSICertificateDownloaded}`: "provisioning {MSICertificateDownloaded}",
+  provisioned: "provisioned",
+  deleting: "deleting",
+  failed: "failed",
+  upgrading: "upgrading",
 }
 
 /**
  * Indicates whether Azure Hybrid Benefit is opted in. Default value is false
  */
-enum AzureHybridBenefit {
-  True,
-  False,
-  NotApplicable,
+union AzureHybridBenefit {
+  string,
+  True: "True",
+  False: "False",
+  NotApplicable: "NotApplicable",
 }
 
 /**
  * If not specified, the default is 'random'. See [expanders](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders) for more information.
  */
-enum Expander {
+union Expander {
+  string,
+
   /**
    * Selects the node group that will have the least idle CPU (if tied, unused memory) after scale-up. This is useful when you have different classes of nodes, for example, high CPU or high memory nodes, and only want to expand those when there are pending pods that need a lot of those resources.
    */
-  `least-waste`,
+  `least-waste`: "least-waste",
 
   /**
    * Selects the node group that would be able to schedule the most pods when scaling up. This is useful when you are using nodeSelector to make sure certain pods land on certain nodes. Note that this won't cause the autoscaler to select bigger nodes vs. smaller, as it can add multiple smaller nodes at once.
    */
-  `most-pods`,
+  `most-pods`: "most-pods",
 
   /**
    * Selects the node group that has the highest priority assigned by the user. It's configuration is described in more details [here](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/expander/priority/readme.md).
    */
-  priority,
+  priority: "priority",
 
   /**
    * Used when you don't have a particular need for the node groups to scale differently.
    */
-  random,
+  random: "random",
 }
 
 /**
  * The extended location type. Allowed value: 'CustomLocation'
  */
-enum ExtendedLocationTypes {
-  CustomLocation,
+union ExtendedLocationTypes {
+  string,
+  CustomLocation: "CustomLocation",
 }
 
-enum ProvisioningState {
-  Succeeded,
-  Failed,
-  Canceled,
-  Pending,
-  Creating,
-  Deleting,
-  Updating,
-  Accepted,
+union ProvisioningState {
+  string,
+  Succeeded: "Succeeded",
+  Failed: "Failed",
+  Canceled: "Canceled",
+  Pending: "Pending",
+  Creating: "Creating",
+  Deleting: "Deleting",
+  Updating: "Updating",
+  Accepted: "Accepted",
 }
 
 /**
@@ -159,6 +193,7 @@ model ProvisionedClusterProperties {
   /**
    * The SSH restricted access profile for the VMs in the provisioned cluster.
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
   clusterVMAccessProfile?: ClusterVMAccessProfile;
 
   /**
@@ -248,6 +283,7 @@ model ControlPlaneProfileControlPlaneEndpoint {
   /**
    * IP address of the Kubernetes API server
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
   hostIP?: string;
 }
 
@@ -299,6 +335,7 @@ model StorageProfile {
 /**
  * SMB CSI Driver settings for the storage profile.
  */
+#suppress "@azure-tools/typespec-azure-core/casing-style" ""
 model StorageProfileSmbCSIDriver {
   /**
    * Indicates whether to enable SMB CSI Driver. The default value is true.
@@ -309,6 +346,7 @@ model StorageProfileSmbCSIDriver {
 /**
  * NFS CSI Driver settings for the storage profile.
  */
+#suppress "@azure-tools/typespec-azure-core/casing-style" ""
 model StorageProfileNfsCSIDriver {
   /**
    * Indicates whether to enable NFS CSI Driver. The default value is true.
@@ -319,6 +357,7 @@ model StorageProfileNfsCSIDriver {
 /**
  * The SSH restricted access profile for the VMs in the provisioned cluster.
  */
+#suppress "@azure-tools/typespec-azure-core/casing-style" ""
 model ClusterVMAccessProfile {
   /**
    * IP Address or CIDR for SSH access to VMs in the provisioned cluster
@@ -347,11 +386,13 @@ model AgentPoolProfile {
   /**
    * Specifies the OS SKU used by the agent pool. The default is CBLMariner if OSType is Linux. The default is Windows2019 when OSType is Windows.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" ""
   osSKU?: Ossku;
 
   /**
    * The node labels to be persisted across all nodes in agent pool.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" ""
   nodeLabels?: Record<string>;
 
   /**
@@ -428,7 +469,7 @@ model CloudProviderProfileInfraNetworkProfile {
   /**
    * List of ARM resource Ids (maximum 1) for the infrastructure network object e.g. /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/logicalNetworks/{logicalNetworkName}
    */
-  vnetSubnetIds?: ResourceIdentifier<[
+  vnetSubnetIds?: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.AzureStackHCI/logicalNetworks";
     },
@@ -623,7 +664,7 @@ model Resource {
    * Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
    */
   @visibility("read")
-  id?: ResourceIdentifier;
+  id?: Azure.Core.armResourceIdentifier;
 
   /**
    * The name of the resource
@@ -641,7 +682,7 @@ model Resource {
    * Azure Resource Manager metadata containing createdBy and modifiedBy information.
    */
   @visibility("read")
-  systemData?: SystemData;
+  systemData?: Azure.ResourceManager.Foundations.SystemData;
 }
 
 /**
@@ -783,7 +824,7 @@ model ListCredentialResponse {
    * ARM Resource Id of the provisioned cluster instance
    */
   @visibility("read")
-  resourceId?: ResourceIdentifier<[
+  resourceId?: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.HybridContainerService/provisionedClusterInstances";
     }
@@ -1007,6 +1048,7 @@ model VirtualNetworkProperties {
   /**
    * VLAN Id used by the network
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
   vlanID?: int32;
 
   @visibility("read")
@@ -1050,11 +1092,13 @@ model VirtualNetworkPropertiesVipPoolItem {
   /**
    * Ending IP address for the IP Pool
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
   endIP?: string;
 
   /**
    * Starting IP address for the IP Pool
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
   startIP?: string;
 }
 
@@ -1062,11 +1106,13 @@ model VirtualNetworkPropertiesVmipPoolItem {
   /**
    * Ending IP address for the IP Pool
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
   endIP?: string;
 
   /**
    * Starting IP address for the IP Pool
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
   startIP?: string;
 }
 

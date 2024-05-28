@@ -6,7 +6,6 @@ import "./models.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Foundations;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 
@@ -16,14 +15,16 @@ namespace Microsoft.HybridContainerService;
  */
 @singleton("default")
 model ProvisionedCluster is ExtensionResource<ProvisionedClusterProperties> {
-  @key("provisionedClusterInstance")
-  @segment("provisionedClusterInstances")
-  @visibility("read")
-  name: string;
+  ...ResourceNameParameter<
+    ProvisionedCluster,
+    "provisionedClusterInstance",
+    "provisionedClusterInstances"
+  >;
 
   /**
    * Extended location pointing to the underlying infrastructure
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" ""
   extendedLocation?: ExtendedLocation;
 }
 

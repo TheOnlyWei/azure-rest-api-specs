@@ -6,7 +6,6 @@ import "./models.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Foundations;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 
@@ -17,14 +16,16 @@ namespace Microsoft.HybridContainerService;
 @singleton("default")
 model KubernetesVersionProfile
   is ExtensionResource<KubernetesVersionProfileProperties> {
-  @key("kubernetesVersion")
-  @segment("kubernetesVersions")
-  @visibility("read")
-  name: string;
+  ...ResourceNameParameter<
+    KubernetesVersionProfile,
+    "kubernetesVersion",
+    "kubernetesVersions"
+  >;
 
   /**
    * Extended location pointing to the underlying infrastructure
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Well-known envelope property"
   extendedLocation?: ExtendedLocation;
 }
 

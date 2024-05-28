@@ -6,7 +6,6 @@ import "./models.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Foundations;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 
@@ -30,6 +29,7 @@ model VirtualNetwork is TrackedResource<VirtualNetworkProperties> {
   /**
    * Extended location pointing to the underlying infrastructure
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Well-known envelope property"
   extendedLocation?: VirtualNetworkExtendedLocation;
 }
 
@@ -48,7 +48,7 @@ interface VirtualNetworks {
   /**
    * Patches the virtual network resource
    */
-  @parameterVisibility("read")
+  @parameterVisibility
   update is ArmCustomPatchAsync<VirtualNetwork, VirtualNetworksPatch>;
 
   /**
